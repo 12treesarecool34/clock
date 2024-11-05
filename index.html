@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Clock</title>
+<link rel="icon" type="image/png" href="./Favicon_Circle.png">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: white;
+        color: black;
+        text-align: center;
+        transition: background-color 0.5s, color 0.5s;
+    }
+    .dark-mode {
+        background-color: black;
+        color: white;
+    }
+    a {
+        color: blue;
+        transition: color 0.5s;
+    }
+</style>
+</head>
+<body>
+<h1>Simple Clock</h1>
+<h3>Simple clock made with HTML, CSS and JS.</h3>
+<button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+<p></p>
+<a href="./thin.html">Simple Clock (Thin)</a>
+<p></p>
+<a href="./black.html">Simple Clock (Black)</a>
+<p></p>
+<script>
+function toggleDarkMode() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+}
+</script>
+</body>
+</html>
