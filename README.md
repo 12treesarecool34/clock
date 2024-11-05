@@ -1,1 +1,1 @@
-# Simple Clock Thin
+# Simple Clock
