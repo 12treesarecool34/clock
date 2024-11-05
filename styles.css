@@ -16,12 +16,12 @@ body {
 
 #time {
     display: block;
-    font-size: 9rem;  /* Even bigger clock */
-    font-weight: 100;  /* Roboto Thin font */
+    font-size: 12rem;
+    font-weight: 800;
 }
 
 #ampm {
     display: block;
-    font-size: 2rem;  /* Even smaller AM/PM */
-    margin-top: -30px;  /* Adjust position */
+    font-size: 2rem;
+    margin-top: -50px;
 }
