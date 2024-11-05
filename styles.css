@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000000;  /* Black background */
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;  /* Use Roboto font */
+}
+
+.clock {
+    text-align: center;
+}
+
+#time {
+    display: block;
+    font-size: 9rem;  /* Even bigger clock */
+    font-weight: 100;  /* Roboto Thin font */
+}
+
+#ampm {
+    display: block;
+    font-size: 2rem;  /* Even smaller AM/PM */
+    margin-top: -30px;  /* Adjust position */
+}
