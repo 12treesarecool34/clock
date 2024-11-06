@@ -28,10 +28,36 @@
         .ampm {
             font-size: 4rem;
         }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #0d47a1;
+        }
+
+        .dark-mode .fullscreen-btn {
+            background-color: #4a90e2;
+        }
+
+        .dark-mode .fullscreen-btn:hover {
+            background-color: #003366;
+        }
     </style>
 </head>
 <body>
     <div class="clock" id="clock"></div>
+    <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">Go Fullscreen</button>
     <script>
         function updateClock() {
             const now = new Date();
@@ -45,6 +71,21 @@
 
             document.getElementById('clock').innerHTML = timeString;
         }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('fullscreenchange', () => {
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            fullscreenBtn.style.display = document.fullscreenElement ? 'none' : 'block';
+        });
 
         setInterval(updateClock, 1000);
         updateClock();
