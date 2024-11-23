@@ -82,20 +82,25 @@
         }
         @keyframes slideDown {
             from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(0); opacity: 1); }
         }
         @keyframes fadeInLeft {
             from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(0); opacity: 1); }
+        }
+        #content {
+            display: none;
+        }
+        .visible {
+            display: block;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Tree: Clock</h1>
-        <h3>Simple HTML clocks.</h3>
     </header>
-    <div class="container">
+    <div id="content" class="container">
         <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
         <p></p>
         <a href="./clock">Clock</a>
@@ -108,10 +113,73 @@
             element.classList.toggle("dark-mode");
         }
 
+        function notifyUser(notifications) {
+            notifications.forEach(notification => {
+                const lines = notification.trim().split('\n');
+                const title = lines[0].trim();
+                const body = lines.slice(1).join('\n').trim();
+
+                if (Notification.permission === "granted") {
+                    const notificationInstance = new Notification(title, { body: body });
+                    notificationInstance.onclick = function(event) {
+                        event.preventDefault();
+                    };
+                    console.log('Notification sent:', title, body);
+                }
+            });
+        }
+
+        async function fetchNotificationContent() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/12treesarecool34/notify/refs/heads/main/message.txt');
+                const text = await response.text();
+                const notifications = text.split('%n').filter(notification => notification.trim() !== '');
+                const previousNotifications = localStorage.getItem('previousNotifications') || '';
+                const newNotifications = notifications.filter(notification => !previousNotifications.includes(notification));
+
+                if (newNotifications.length > 0) {
+                    notifyUser(newNotifications);
+                    localStorage.setItem('previousNotifications', notifications.join('%n'));
+                }
+            } catch (error) {
+                console.error('Error fetching notification content:', error);
+            }
+        }
+
+        function checkForUpdates() {
+            fetchNotificationContent();
+        }
+
+        function updateContentVisibility() {
+            const content = document.getElementById('content');
+            if (Notification.permission === "granted") {
+                content.classList.add('visible');
+                content.style.display = 'block';
+            } else {
+                content.classList.remove('visible');
+                content.style.display = 'none';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.body.classList.add("dark-mode");
             }
+
+            updateContentVisibility();
+
+            Notification.requestPermission().then(permission => {
+                localStorage.setItem('notificationPermission', permission);
+                updateContentVisibility();
+                if (permission === 'granted') {
+                    setTimeout(() => {
+                        fetchNotificationContent();
+                    }, 10000);
+                    setInterval(checkForUpdates, 5000);
+                }
+            });
+
+            setInterval(updateContentVisibility, 1000);
         });
     </script>
 </body>
