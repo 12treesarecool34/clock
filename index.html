@@ -131,7 +131,7 @@
 
         async function fetchNotificationContent() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/12treesarecool34/notify/refs/heads/main/message.txt');
+                const response = await fetch('https://raw.githubusercontent.com/12treesarecool34/notify/refs/heads/main/message.txt?token=$(date%20+%s)');
                 const text = await response.text();
                 const notifications = text.split('%n').filter(notification => notification.trim() !== '');
                 const previousNotifications = localStorage.getItem('previousNotifications') || '';
