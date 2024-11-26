@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Clock</title>
+    <link rel="icon" type="image/png" href="./Tree.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <style>
+        body {
+            cursor: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .clock {
+            text-align: center;
+            font-size: 12rem;
+            font-weight: 100;
+        }
+
+        .ampm {
+            font-size: 4rem;
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #0d47a1;
+        }
+
+        .dark-mode .fullscreen-btn {
+            background-color: #4a90e2;
+        }
+
+        .dark-mode .fullscreen-btn:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock"></div>
+    <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">Go Fullscreen</button>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes} <span class="ampm">${ampm}</span>`;
+
+            document.getElementById('clock').innerHTML = timeString;
+            updateTitle(timeString);
+        }
+
+        function updateTitle(timeString) {
+            document.title = timeString.replace('<span class="ampm">', ' ').replace('</span>', '');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('fullscreenchange', () => {
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            fullscreenBtn.style.display = document.fullscreenElement ? 'none' : 'block';
+        });
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
