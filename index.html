@@ -1,113 +1,112 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Clock</title>
-    <link rel="icon" type="image/png" href="./Tree.png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="icon"
+        href="https://raw.githubusercontent.com/microsoft/fluentui-emoji/refs/heads/main/assets/Deciduous%20tree/3D/deciduous_tree_3d.png">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
+            justify-content: flex-start;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            transition: background-color 0.5s, color 0.5s;
-            overflow-x: hidden;
+            user-select: none;
         }
-        .dark-mode {
-            background-color: #333;
-            color: #f4f4f4;
-        }
-        header {
-            background-color: #444;
-            color: white;
-            padding: 10px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            animation: slideDown 1s ease-in-out;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-            animation: fadeIn 1s ease-in-out;
-        }
-        h3 {
-            margin: 10px 0 20px;
-            font-size: 1.2em;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        .container {
-            padding: 20px;
-        }
-        a {
-            color: #1a73e8;
-            text-decoration: none;
+
+        .title-container {
+            text-align: center;
+            padding: 40px;
+            background-color: #1e1e1e;
+            font-size: 28px;
             font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .subtext-title {
+            font-size: 18px;
+            font-weight: normal;
+            color: lightgray;
+            margin-top: 10px;
+        }
+
+        .link {
+            color: mediumpurple;
+            text-decoration: none;
             display: block;
-            margin: 10px 0;
-            transition: color 0.3s, transform 0.3s, opacity 0.3s;
-            animation: fadeInLeft 1s ease-in-out;
+            text-align: center;
+            font-weight: 900;
+            width: 100%;
         }
-        a:hover {
-            text-decoration: underline;
-            color: #0d47a1;
-            transform: translateX(10px);
-            opacity: 0.8;
+
+        .box {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #444;
+            width: 80%;
+            max-width: 400px;
+            margin: 20px auto 0 auto;
+            text-align: center;
         }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #33194d;
+            font-size: 14px;
+        }
+
+        .footer2 {
+            text-align: center;
+            padding: 10px;
+            background-color: #261339;
+            font-size: 14px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
         button {
-            padding: 10px 20px;
-            background-color: #1a73e8;
+            background-color: mediumpurple;
             color: white;
             border: none;
+            padding: 5px 10px;
+            border-radius: 10px;
             cursor: pointer;
-            border-radius: 5px;
-            font-family: 'Roboto', sans-serif;
-            transition: background-color 0.3s, transform 0.3s;
-            animation: fadeIn 2s ease-in-out;
-        }
-        button:hover {
-            background-color: #0d47a1;
-            transform: scale(1.05);
-        }
-        .dark-mode a {
-            color: #4a90e2;
-        }
-        .dark-mode a:hover {
-            color: #ffffff;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1); }
-        }
-        @keyframes fadeInLeft {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1); }
         }
     </style>
 </head>
+
 <body>
-I'm working on redoing my GitHub pages, so they may be out of date or broken.
-    <header>
-        <h1>Clock</h1>
-    </header>
-    <div id="content" class="container">
-        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-        <p></p>
-        <a href="./clock" target="_blank">Clock</a>
-        <a href="./background-clock" target="_blank">Background Clock</a>
-        <a href="./screen-saver" target="_blank">Screen Saver</a>
-        <a href="./tab-clock" target="_blank">Tab Clock</a>
+    <div class="title-container">
+        Clock
+        <div class="subtext-title">
+            Simple HTML clocks.
+        </div>
     </div>
-    <script>
-        function toggleDarkMode() {
-            var element = document.body;
-            element.classList.toggle("dark-mode");
-        }
-    </script>
+    <div class="box">
+        <div class="button-container">
+            <button onclick="window.location.href='./clock'">CLock</button>
+            <button onclick="window.location.href='./background-clock'">Background Clock</button>
+            <button onclick="window.location.href='./screen-saver'">Screen Saver</button>
+            <button onclick="window.location.href='./tab-clock'">Tab Clock</button>
+        </div>
+    </div>
 </body>
+
 </html>
