@@ -1,116 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta
+            name="viewport"
+            content="width=device-content,
+            initial-scale=1.0">
+        <title>Clock</title>
+        <link rel="icon" type="image/png"
+            href="./Tree.png">
+            <link rel="icon" href="https://raw.githubusercontent.com/microsoft/fluentui-emoji/refs/heads/main/assets/Deciduous%20tree/3D/deciduous_tree_3d.png">
+        <style>
+            body {
+                cursor: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background:
+                url('image.jpg') no-repeat center center
+                fixed;
+                background-size: cover;
+                color: #ffffff;
+                font-family: 'Roboto', sans-serif;
+                transition: background-image 1s ease;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clock</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <link rel="icon"
-        href="https://raw.githubusercontent.com/microsoft/fluentui-emoji/refs/heads/main/assets/Deciduous%20tree/3D/deciduous_tree_3d.png">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            justify-content: flex-start;
-            height: 100vh;
-            margin: 0;
-            user-select: none;
-        }
+            .clock {
+                text-align: center;
+                font-size: 12rem;
+                font-weight: 100;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0,
+                0.5);
+            }
 
-        .title-container {
-            text-align: center;
-            padding: 40px;
-            background-color: #1e1e1e;
-            font-size: 28px;
-            font-weight: bold;
-            width: 100%;
-            box-sizing: border-box;
-        }
+            .ampm {
+                font-size: 4rem;
+            }
 
-        .subtext-title {
-            font-size: 18px;
-            font-weight: normal;
-            color: lightgray;
-            margin-top: 10px;
-        }
+            .fullscreen-btn,
+            .upload-btn {
+                position: absolute;
+                top: 20px;
+                background-color: mediumpurple;
+                color: white;
+                border: none;
+                padding: 5px 20px;
+                border-radius: 10px;
+                cursor: pointer;
+            }
 
-        .link {
-            color: mediumpurple;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            font-weight: 900;
-            width: 100%;
-        }
+            .fullscreen-btn {
+                right: 20px;
+            }
 
-        .box {
-            background-color: #2a2a2a;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #444;
-            width: 80%;
-            max-width: 400px;
-            margin: 20px auto 0 auto;
-            text-align: center;
-        }
+            .upload-btn {
+                left: 20px;
+            }
 
-        .footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #33194d;
-            font-size: 14px;
-        }
+            .fullscreen-btn:hover,
+            .upload-btn:hover {
+                background-color: #6a0dad;
+            }
 
-        .footer2 {
-            text-align: center;
-            padding: 10px;
-            background-color: #261339;
-            font-size: 14px;
-        }
+            .upload-input {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="clock" id="clock"></div>
+        <button class="fullscreen-btn" id="fullscreenBtn"
+            onclick="toggleFullscreen()">Go Fullscreen</button>
+        <button class="upload-btn" id="uploadBtn"
+            onclick="document.getElementById('uploadInput').click()">Upload
+            Background</button>
+        <input type="file" id="uploadInput" class="upload-input"
+            accept="image/*" onchange="changeBackground(event)">
+        <script>
+            function updateClock() {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2,
+                    '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                const timeString = `${hours.toString().padStart(2,
+                    '0')}:${minutes} <span class="ampm">${ampm}</span>`;
+                document.getElementById('clock').innerHTML = timeString;
+                updateTitle(timeString);
+            }
 
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
+            function updateTitle(timeString) {
+                document.title = timeString.replace('<span class="ampm">',
+                    ' ').replace('</span>', '');
+            }
 
-        button {
-            background-color: mediumpurple;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        
-        button:hover {
-            background-color: #6a0dad;
-        }
-    </style>
-</head>
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            }
 
-<body>
-    <div class="title-container">
-        Clock
-        <div class="subtext-title">
-            Simple HTML clocks.
-        </div>
-    </div>
-    <div class="box">
-        <div class="button-container">
-            <button onclick="window.location.href='./clock'">Clock</button>
-            <button onclick="window.location.href='./background-clock'">Background Clock</button>
-            <button onclick="window.location.href='./screen-saver'">Screen Saver</button>
-            <button onclick="window.location.href='./tab-clock'">Tab Clock</button>
-        </div>
-    </div>
-</body>
+            function changeBackground(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.body.style.backgroundImage =
+                            `url(${e.target.result})`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
 
+            document.addEventListener('fullscreenchange', () => {
+                const fullscreenBtn = document.getElementById(
+                    'fullscreenBtn');
+                const uploadBtn = document.getElementById('uploadBtn');
+                if (document.fullscreenElement) {
+                    fullscreenBtn.style.display = 'none';
+                    uploadBtn.style.display = 'none';
+                } else {
+                    fullscreenBtn.style.display = 'block';
+                    uploadBtn.style.display = 'block';
+                }
+            });
+
+            setInterval(updateClock, 1000);
+            updateClock();
+        </script>
+    </body>
 </html>
